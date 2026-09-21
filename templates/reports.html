@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HeartCare AI | Medical Reports</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-page">
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-brand">
+
+            <div class="dashboard-logo">
+                ♥
+            </div>
+
+            <div>
+                <h1>HeartCare AI</h1>
+                <p>Intelligent Heart Disease Prediction</p>
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-user">
+
+            <div class="user-avatar">
+                👤
+            </div>
+
+            <div class="user-details">
+
+                <strong>
+                    {{ session.get('user_name', 'User') }}
+                </strong>
+
+                <span>
+                    Patient Portal
+                </span>
+
+            </div>
+
+            <a href="/dashboard"
+               class="logout-button">
+                Dashboard
+            </a>
+
+            <a href="/logout"
+               class="logout-button">
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="dashboard-content">
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="dashboard-welcome">
+
+            <div>
+
+                <span class="dashboard-badge">
+                    MEDICAL REPORTS
+                </span>
+
+                <h2>
+                    Your <span>Reports</span>
+                </h2>
+
+                <p>
+                    Generate and access PDF reports for
+                    your previous heart disease predictions.
+                </p>
+
+            </div>
+
+            <div class="welcome-heart">
+                📄
+            </div>
+
+        </section>
+
+
+        <!-- REPORTS -->
+
+        <section class="reports-section">
+
+            <div class="dashboard-section-title">
+
+                <h3>
+                    Available Reports
+                </h3>
+
+                <p>
+                    PDF reports generated from your AI predictions
+                </p>
+
+            </div>
+
+
+            {% if history %}
+
+            <div class="reports-grid">
+
+                {% for record in history %}
+
+                <div class="report-card">
+
+                    <div class="report-card-top">
+
+                        <div class="report-file-icon">
+                            📄
+                        </div>
+
+                        <span class="report-id">
+                            Report #{{ record.id }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="report-details">
+
+                        <h4>
+                            {{ record.patient_name }}
+                        </h4>
+
+                        <p>
+                            Prediction: {{ record.result }}
+                        </p>
+
+                        <p>
+                            Confidence:
+                            <strong>
+                                {{ record.confidence }}%
+                            </strong>
+                        </p>
+
+                        <p>
+                            Date: {{ record.date }}
+                        </p>
+
+                    </div>
+
+
+                    <a href="/generate_report/{{ record.id }}"
+                       class="report-button">
+
+                        📥 Generate PDF
+
+                    </a>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+            <!-- NO REPORTS -->
+
+            <div class="empty-history">
+
+                <div class="empty-history-icon">
+                    📄
+                </div>
+
+                <h3>
+                    No Reports Available
+                </h3>
+
+                <p>
+                    Make a heart disease prediction first.
+                    Your prediction can then be converted
+                    into a PDF report.
+                </p>
+
+                <a href="/"
+                   class="login-button history-button">
+
+                    <span>
+                        Start New Prediction
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+        <!-- INFORMATION -->
+
+        <section class="dashboard-info">
+
+            <div class="info-symbol">
+                !
+            </div>
+
+            <div>
+
+                <h4>
+                    Important Health Information
+                </h4>
+
+                <p>
+                    HeartCare AI reports are generated from
+                    machine-learning predictions for educational
+                    and awareness purposes. They are not medical
+                    diagnoses and should not replace advice from
+                    a qualified healthcare professional.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="dashboard-footer">
+
+        <p>
+            © 2026 HeartCare AI
+            <span>•</span>
+            AI-Based Heart Disease Prediction System
+        </p>
+
+    </footer>
+
+</div>
+
+</body>
+
+</html>

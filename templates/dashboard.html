@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        HeartCare AI | Dashboard
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="dashboard-page">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-brand">
+
+            <div class="dashboard-logo">
+                ♥
+            </div>
+
+            <div>
+
+                <h1>
+                    HeartCare AI
+                </h1>
+
+                <p>
+                    Intelligent Heart Disease Prediction
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-user">
+
+            <div class="user-avatar">
+                👤
+            </div>
+
+            <div class="user-details">
+
+                <strong>
+                    {{ session.get('user_name', 'User') }}
+                </strong>
+
+                <span>
+                    Patient Portal
+                </span>
+
+            </div>
+
+            <a href="/logout"
+               class="logout-button">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="dashboard-content">
+
+
+        <!-- WELCOME -->
+
+        <section class="dashboard-welcome">
+
+            <div>
+
+                <span class="dashboard-badge">
+                    HEALTHCARE AI PLATFORM
+                </span>
+
+                <h2>
+
+                    Welcome back,
+                    <span>
+                        {{ session.get('user_name', 'User') }}
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    Manage your heart health predictions,
+                    view previous results, generate reports
+                    and access health information.
+
+                </p>
+
+            </div>
+
+
+            <div class="welcome-heart">
+                ♥
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="dashboard-stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔍
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Predictions
+                    </span>
+
+                    <h3>
+                        {{ total_predictions }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📊
+                </div>
+
+                <div>
+
+                    <span>
+                        Prediction History
+                    </span>
+
+                    <h3>
+                        {{ total_history }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📄
+                </div>
+
+                <div>
+
+                    <span>
+                        Reports Generated
+                    </span>
+
+                    <h3>
+                        {{ total_reports }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= SERVICES ================= -->
+
+        <section class="dashboard-section">
+
+
+            <div class="dashboard-section-title">
+
+                <h3>
+                    HeartCare Services
+                </h3>
+
+                <p>
+                    Choose an option to continue
+                </p>
+
+            </div>
+
+
+
+            <div class="dashboard-cards">
+
+
+                <!-- NEW PREDICTION -->
+
+                <a href="/"
+                   class="dashboard-card">
+
+                    <div class="card-icon prediction-icon">
+                        ♥
+                    </div>
+
+                    <div class="card-content">
+
+                        <h4>
+                            New Prediction
+                        </h4>
+
+                        <p>
+                            Enter health information and
+                            generate an AI-based heart disease
+                            risk prediction.
+                        </p>
+
+                        <span class="card-link">
+                            Start Prediction →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- HISTORY -->
+
+                <a href="/history"
+                   class="dashboard-card">
+
+                    <div class="card-icon history-icon">
+                        ↻
+                    </div>
+
+                    <div class="card-content">
+
+                        <h4>
+                            Prediction History
+                        </h4>
+
+                        <p>
+                            View and review your previous
+                            heart disease prediction records.
+                        </p>
+
+                        <span class="card-link">
+                            View History →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- MEDICAL REPORTS -->
+
+                <a href="/reports"
+                   class="dashboard-card">
+
+                    <div class="card-icon report-icon">
+                        📄
+                    </div>
+
+                    <div class="card-content">
+
+                        <h4>
+                            Medical Reports
+                        </h4>
+
+                        <p>
+                            Generate and access PDF reports
+                            from your previous predictions.
+                        </p>
+
+                        <span class="card-link">
+                            View Reports →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- HEALTH GUIDANCE -->
+
+                <a href="/guidance"
+                   class="dashboard-card">
+
+                    <div class="card-icon health-icon">
+                        +
+                    </div>
+
+                    <div class="card-content">
+
+                        <h4>
+                            Health Guidance
+                        </h4>
+
+                        <p>
+                            View general heart-health and
+                            lifestyle awareness information.
+                        </p>
+
+                        <span class="card-link">
+                            View Guidance →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- INFORMATION -->
+
+        <section class="dashboard-info">
+
+            <div class="info-symbol">
+                !
+            </div>
+
+            <div>
+
+                <h4>
+                    Important Health Information
+                </h4>
+
+                <p>
+
+                    HeartCare AI provides machine-learning
+                    based risk predictions for educational
+                    and awareness purposes. Results should
+                    not be considered a medical diagnosis.
+                    Consult a qualified healthcare professional
+                    for medical advice.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="dashboard-footer">
+
+        <p>
+
+            © 2026 HeartCare AI
+
+            <span>
+                •
+            </span>
+
+            AI-Based Heart Disease Prediction System
+
+        </p>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>

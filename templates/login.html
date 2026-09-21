@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HeartCare AI | Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="login-page">
+
+    <div class="login-container">
+
+        <!-- Left Side -->
+        <div class="login-info">
+
+            <div class="login-brand">
+                <div class="login-heart">♥</div>
+
+                <div>
+                    <h1>HeartCare AI</h1>
+                    <p>Intelligent Heart Disease Prediction</p>
+                </div>
+            </div>
+
+            <div class="login-intro">
+
+                <span class="login-badge">
+                    AI POWERED HEALTHCARE
+                </span>
+
+                <h2>
+                    Smarter Health<br>
+                    <span>Starts Here.</span>
+                </h2>
+
+                <p>
+                    Access your HeartCare AI dashboard to analyze
+                    health information and generate AI-based heart
+                    disease risk predictions.
+                </p>
+
+            </div>
+
+            <div class="login-features">
+
+                <div class="login-feature">
+                    <span>✓</span>
+                    <div>
+                        <strong>AI-Based Prediction</strong>
+                        <p>Machine learning powered risk analysis</p>
+                    </div>
+                </div>
+
+                <div class="login-feature">
+                    <span>✓</span>
+                    <div>
+                        <strong>Secure Access</strong>
+                        <p>Protected access to your healthcare data</p>
+                    </div>
+                </div>
+
+                <div class="login-feature">
+                    <span>✓</span>
+                    <div>
+                        <strong>Prediction History</strong>
+                        <p>Keep track of previous predictions</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Right Side -->
+        <div class="login-card">
+
+            <div class="login-card-header">
+
+                <div class="login-icon">
+                    🔐
+                </div>
+
+                <h2>Welcome Back</h2>
+
+                <p>
+                    Sign in to continue to HeartCare AI
+                </p>
+
+            </div>
+
+
+            <form action="/login" method="POST">
+
+                <div class="login-form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span>✉</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="login-form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span>🔒</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="login-options">
+
+                    <label class="remember-me">
+
+                        <input
+                            type="checkbox"
+                            name="remember"
+                        >
+
+                        <span>Remember me</span>
+
+                    </label>
+
+                    <a href="#">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+
+                    Sign In
+
+                    <span>→</span>
+
+                </button>
+
+            </form>
+
+
+            <div class="login-divider">
+                <span>OR</span>
+            </div>
+
+
+            <div class="register-text">
+
+                <p>
+                    Don't have an account?
+                    <a href="#">
+                        Create Account
+                    </a>
+                </p>
+
+            </div>
+
+
+            <div class="login-security">
+
+                <span>🔒</span>
+
+                <p>
+                    Your information is protected with
+                    secure authentication.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer class="login-footer">
+
+        <p>
+            © 2026 HeartCare AI
+            <span>•</span>
+            AI-Based Heart Disease Prediction System
+        </p>
+
+    </footer>
+
+</div>
+
+</body>
+</html>

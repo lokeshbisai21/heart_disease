@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        HeartCare AI | Prediction Result
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="page-wrapper">
+
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🫀
+            </div>
+
+            <div>
+
+                <h1>
+                    HeartCare AI
+                </h1>
+
+                <p>
+                    Intelligent Heart Disease Prediction
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ai-badge">
+            🤖 AI Powered
+        </div>
+
+    </header>
+
+
+
+    <!-- RESULT -->
+
+    <main class="result-content">
+
+        <div class="result-card">
+
+
+            <div class="result-header">
+
+                <span class="result-badge">
+                    PREDICTION COMPLETE
+                </span>
+
+                <h2>
+                    Prediction Result
+                </h2>
+
+                <p>
+                    AI-based analysis for the submitted
+                    patient information
+                </p>
+
+            </div>
+
+
+
+            <!-- PATIENT -->
+
+            <div class="patient-box">
+
+                <div class="patient-avatar">
+                    👤
+                </div>
+
+                <div>
+
+                    <span>
+                        Patient
+                    </span>
+
+                    <h3>
+                        {{ patient_name }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            {% if status == "high" %}
+
+            <div class="result-status high">
+
+                <div class="status-icon">
+                    ❤️
+                </div>
+
+                <div>
+
+                    <span class="status-label">
+                        PREDICTION
+                    </span>
+
+                    <h2>
+                        Heart Disease Detected
+                    </h2>
+
+                    <p>
+                        The model predicts a higher likelihood
+                        of heart disease based on the information
+                        provided.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            {% elif status == "low" %}
+
+            <div class="result-status low">
+
+                <div class="status-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span class="status-label">
+                        PREDICTION
+                    </span>
+
+                    <h2>
+                        No Heart Disease Detected
+                    </h2>
+
+                    <p>
+                        The model predicts a lower likelihood
+                        of heart disease based on the information
+                        provided.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            {% else %}
+
+            <div class="result-status error">
+
+                <div class="status-icon">
+                    ⚠️
+                </div>
+
+                <div>
+
+                    <span class="status-label">
+                        ERROR
+                    </span>
+
+                    <h2>
+                        Unable to Make Prediction
+                    </h2>
+
+                    {% if error %}
+
+                    <p>
+                        {{ error }}
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+
+            {% if status == "high" or status == "low" %}
+
+            <!-- CONFIDENCE -->
+
+            <div class="confidence-box">
+
+                <div class="confidence-top">
+
+                    <span>
+                        Model Confidence
+                    </span>
+
+                    <strong>
+                        {{ confidence }}%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div class="progress-fill"
+                         style="width: {{ confidence }}%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTIONS -->
+
+            <div class="result-actions">
+
+                <a href="/"
+                   class="secondary-button">
+
+                    ← Check Another Patient
+
+                </a>
+
+
+                <a href="/generate_report/{{ prediction_id }}"
+                   class="login-button report-download-button">
+
+                    <span>
+                        📄 Generate PDF Report
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- DISCLAIMER -->
+
+            <div class="result-disclaimer">
+
+                ⚠️
+
+                <p>
+
+                    This prediction is intended for educational
+                    and project purposes only. It is not a medical
+                    diagnosis. Please consult a qualified healthcare
+                    professional for medical advice.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+
+            © 2026 HeartCare AI
+
+            <span>
+                •
+            </span>
+
+            AI-Based Heart Disease Prediction System
+
+        </p>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HeartCare AI | Prediction History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-page">
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-brand">
+
+            <div class="dashboard-logo">
+                ♥
+            </div>
+
+            <div>
+                <h1>HeartCare AI</h1>
+                <p>Intelligent Heart Disease Prediction</p>
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-user">
+
+            <div class="user-avatar">
+                👤
+            </div>
+
+            <div class="user-details">
+
+                <strong>
+                    {{ session.get('user_name', 'User') }}
+                </strong>
+
+                <span>
+                    Patient Portal
+                </span>
+
+            </div>
+
+            <a href="/dashboard"
+               class="logout-button">
+                Dashboard
+            </a>
+
+            <a href="/logout"
+               class="logout-button">
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="dashboard-content">
+
+
+        <!-- PAGE TITLE -->
+
+        <section class="dashboard-welcome">
+
+            <div>
+
+                <span class="dashboard-badge">
+                    PREDICTION RECORDS
+                </span>
+
+                <h2>
+                    Prediction <span>History</span>
+                </h2>
+
+                <p>
+                    View your previous heart disease prediction
+                    results and confidence scores.
+                </p>
+
+            </div>
+
+            <div class="welcome-heart">
+                📊
+            </div>
+
+        </section>
+
+
+        <!-- HISTORY TABLE -->
+
+        <section class="history-section">
+
+            <div class="dashboard-section-title">
+
+                <h3>
+                    Previous Predictions
+                </h3>
+
+                <p>
+                    Your recent AI-based prediction records
+                </p>
+
+            </div>
+
+
+            {% if history %}
+
+            <div class="history-table-container">
+
+                <table class="history-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Patient</th>
+
+                            <th>Prediction</th>
+
+                            <th>Confidence</th>
+
+                            <th>Date</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for record in history %}
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    {{ record.patient_name }}
+                                </strong>
+                            </td>
+
+                            <td>
+
+                                {% if record.status == "high" %}
+
+                                <span class="history-status high">
+                                    ♥ Heart Disease Detected
+                                </span>
+
+                                {% else %}
+
+                                <span class="history-status low">
+                                    ✓ No Heart Disease Detected
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ record.confidence }}%
+                            </td>
+
+                            <td>
+                                {{ record.date }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            {% else %}
+
+            <!-- EMPTY HISTORY -->
+
+            <div class="empty-history">
+
+                <div class="empty-history-icon">
+                    📊
+                </div>
+
+                <h3>
+                    No Prediction History
+                </h3>
+
+                <p>
+                    You haven't made any predictions yet.
+                    Start your first heart disease prediction
+                    to see the result here.
+                </p>
+
+                <a href="/"
+                   class="login-button history-button">
+
+                    <span>
+                        Start New Prediction
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+        <!-- INFORMATION -->
+
+        <section class="dashboard-info">
+
+            <div class="info-symbol">
+                !
+            </div>
+
+            <div>
+
+                <h4>
+                    Important Health Information
+                </h4>
+
+                <p>
+                    HeartCare AI provides machine-learning based
+                    predictions for educational and awareness
+                    purposes. Results should not be considered
+                    a medical diagnosis. Consult a qualified
+                    healthcare professional for medical advice.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="dashboard-footer">
+
+        <p>
+            © 2026 HeartCare AI
+            <span>•</span>
+            AI-Based Heart Disease Prediction System
+        </p>
+
+    </footer>
+
+</div>
+
+</body>
+
+</html>

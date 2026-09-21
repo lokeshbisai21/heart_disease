@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>HeartCare AI | Heart Disease Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🫀
+            </div>
+
+            <div>
+                <h1>HeartCare AI</h1>
+                <p>Intelligent Heart Disease Prediction</p>
+            </div>
+
+        </div>
+
+        <div class="ai-badge">
+            🤖 AI Powered
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <div class="hero-section">
+
+            <div>
+
+                <span class="welcome-badge">
+                    🩺 HEALTHCARE AI SYSTEM
+                </span>
+
+                <h2>
+                    Heart Disease<br>
+                    <span>Risk Prediction</span>
+                </h2>
+
+                <p>
+                    Enter the patient's health information below
+                    to generate an AI-based heart disease prediction.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORM CARD -->
+
+        <form action="/predict"
+              method="POST"
+              class="prediction-form">
+
+
+            <!-- PATIENT INFORMATION -->
+
+            <section class="form-section">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        👤
+                    </div>
+
+                    <div>
+                        <h3>Patient Information</h3>
+                        <p>Basic information about the patient</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <!-- Patient Name -->
+
+                    <div class="form-group">
+
+                        <label for="patient_name">
+                            Patient Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="patient_name"
+                            name="patient_name"
+                            placeholder="Enter patient name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Model Features -->
+
+                    {% for feature in feature_names %}
+
+                    <div class="form-group">
+
+                        <label for="{{ feature }}">
+                            {{ feature.replace('_', ' ') }}
+                        </label>
+
+
+                        {% if feature in encoders %}
+
+                            <select
+                                id="{{ feature }}"
+                                name="{{ feature }}"
+                                required
+                            >
+
+                                <option value=""
+                                        disabled
+                                        selected>
+
+                                    Select {{ feature.replace('_', ' ') }}
+
+                                </option>
+
+
+                                {% for option in encoders[feature].classes_ %}
+
+                                    <option value="{{ option }}">
+
+                                        {{ option }}
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        {% else %}
+
+                            <input
+                                type="number"
+                                id="{{ feature }}"
+                                name="{{ feature }}"
+                                step="any"
+                                placeholder="Enter {{ feature.replace('_', ' ') }}"
+                                required
+                            >
+
+                        {% endif %}
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+            <!-- SUBMIT AREA -->
+
+            <div class="submit-area">
+
+                <div class="privacy-note">
+
+                    🔒
+                    <span>
+                        Your information is processed securely
+                        for prediction purposes.
+                    </span>
+
+                </div>
+
+
+                <button type="submit"
+                        class="predict-button">
+
+                    <span>🔍</span>
+
+                    Predict Heart Disease
+
+                    <span>→</span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- INFORMATION CARDS -->
+
+        <div class="info-cards">
+
+            <div class="info-card">
+
+                <div class="info-card-icon">
+                    🤖
+                </div>
+
+                <div>
+
+                    <h4>AI Powered</h4>
+
+                    <p>
+                        Machine learning based prediction
+                        system.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-card-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h4>Instant Results</h4>
+
+                    <p>
+                        Get prediction results within seconds.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-card-icon">
+                    📊
+                </div>
+
+                <div>
+
+                    <h4>Confidence Score</h4>
+
+                    <p>
+                        View the model's prediction confidence.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DISCLAIMER -->
+
+        <div class="disclaimer">
+
+            <strong>⚠️ Important Notice</strong>
+
+            <p>
+                This application is developed for educational
+                and project purposes only. The prediction should
+                not be considered a medical diagnosis or a
+                replacement for professional medical advice.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 HeartCare AI
+            <span>•</span>
+            AI-Based Heart Disease Prediction System
+        </p>
+
+    </footer>
+
+</div>
+
+</body>
+
+</html>
