@@ -10,6 +10,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER
 import os
 from dotenv import load_dotenv
+import mysql.connector
 
 app = Flask(__name__)
 
@@ -20,6 +21,18 @@ app = Flask(__name__)
 load_dotenv()
 
 app.secret_key = os.environ.get("SECRET_KEY")
+# =========================================================
+# RDS DATABASE CONNECTION
+# =========================================================
+
+def get_db_connection():
+    return mysql.connector.connect(
+        host=os.environ.get("DB_HOST"),
+        port=int(os.environ.get("DB_PORT", 3306)),
+        database=os.environ.get("DB_NAME"),
+        user=os.environ.get("DB_USER"),
+        password=os.environ.get("DB_PASSWORD")
+    )
 
 
 # =========================================================
@@ -38,34 +51,32 @@ print(feature_names)
 
 
 # =========================================================
-# PREDICTION HISTORY
+# RDS PREDICTION HISTORY
 # =========================================================
-
-HISTORY_FILE = "prediction_history.json"
-
 
 def load_history():
 
-    try:
+    connection = get_db_connection()
+    cursor = connection.cursor(dictionary=True)
 
-        with open(HISTORY_FILE, "r") as file:
-            return json.load(file)
+    cursor.execute("""
+        SELECT
+            id,
+            patient_name,
+            result,
+            confidence,
+            status,
+            DATE_FORMAT(prediction_date, '%d-%m-%Y %H:%i') AS date
+        FROM predictions
+        ORDER BY id DESC
+    """)
 
-    except (FileNotFoundError, json.JSONDecodeError):
+    history = cursor.fetchall()
 
-        return []
+    cursor.close()
+    connection.close()
 
-
-def save_history(history):
-
-    with open(HISTORY_FILE, "w") as file:
-
-        json.dump(
-            history,
-            file,
-            indent=4
-        )
-
+    return history
 
 # =========================================================
 # LOGIN
@@ -304,40 +315,31 @@ def predict():
             status = "low"
 
 
+              # ---------------------------------------------
+        # SAVE PREDICTION TO RDS
         # ---------------------------------------------
-        # SAVE HISTORY
-        # ---------------------------------------------
 
-        prediction_id = len(
-            load_history()
-        ) + 1
+        connection = get_db_connection()
+        cursor = connection.cursor()
 
-        prediction_date = datetime.now().strftime(
-            "%d-%m-%Y %H:%M"
-        )
+        cursor.execute("""
+            INSERT INTO predictions
+            (patient_name, result, confidence, status, prediction_date)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (
+            patient_name,
+            result,
+            confidence,
+            status,
+            datetime.now()
+        ))
 
+        connection.commit()
 
-        history = load_history()
+        prediction_id = cursor.lastrowid
 
-
-        history.append({
-
-            "id": prediction_id,
-
-            "patient_name": patient_name,
-
-            "result": result,
-
-            "confidence": confidence,
-
-            "status": status,
-
-            "date": prediction_date
-
-        })
-
-
-        save_history(history)
+        cursor.close()
+        connection.close()
 
 
         # ---------------------------------------------
